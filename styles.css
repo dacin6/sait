@@ -69,9 +69,19 @@ body.dark-theme #themeBtn {
 }
 
 .blue-smiley {
-  display: inline-block;
-  filter: hue-rotate(150deg) saturate(220%) brightness(1.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  filter: none;
   transform: translateY(-1px);
+}
+
+.blue-smiley svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .fireflies {
