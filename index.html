@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Запрошення в ботсад</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="theme-toggle">
+    <button id="themeBtn" title="Змінити тему">🌙</button>
+  </div>
+  <div class="stars"></div>
+  <main class="wrap">
+    <div class="flowers"></div>
+    <h1 class="animated-title">Привіт 😊</h1>
+    <p class="lead animated-text">Хочеш прогулятись разом у ботанічний сад?</p>
+
+    <div class="info-section animated-text">
+      <p>Я підготував(а) для нас щось особливе:</p>
+      <div class="features">
+        <div class="feature">
+          <span class="icon">🌺</span>
+          <span>Рідкісні рослини</span>
+        </div>
+        <div class="feature">
+          <span class="icon">🦋</span>
+          <span>Метелики</span>
+        </div>
+        <div class="feature">
+          <span class="icon">🌳</span>
+          <span>Чудові алеї</span>
+        </div>
+        <div class="feature">
+          <span class="icon">☕</span>
+          <span>Кафе</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons" id="btns">
+      <button id="yesBtn" class="btn btn-yes"><span>Так ❤️</span></button>
+      <button id="noBtn" class="btn btn-no"><span>Ні</span></button>
+    </div>
+
+    <div id="dateArea" class="hidden">
+      <p>Я дуже радий(а)! Коли ти вільна наступного тижня? Обери дату в межах наступного тижня, окрім понеділка та п’ятниці — в ці дні я в наряд заступаю.</p>
+      <input type="date" id="dateInput" />
+      <button id="saveDate" class="btn">Підтвердити</button>
+      <div id="dateNotice" class="date-notice hidden"></div>
+    </div>
+
+    <div id="result" class="result"></div>
+
+    <!-- Quiz Section -->
+    <div id="quizSection" class="quiz-section animated-text hidden">
+      <h2>🌸 Вибери твою улюблену квітку 🌸</h2>
+      <div class="quiz-options">
+        <button class="quiz-btn" data-flower="🌹">
+          <span class="quiz-icon">🌹</span>
+          <span>Троянда</span>
+        </button>
+        <button class="quiz-btn" data-flower="🌷">
+          <span class="quiz-icon">🌷</span>
+          <span>Тюльпан</span>
+        </button>
+        <button class="quiz-btn" data-flower="🌺">
+          <span class="quiz-icon">🌺</span>
+          <span>Гібіскус</span>
+        </button>
+        <button class="quiz-btn" data-flower="🌼">
+          <span class="quiz-icon">🌼</span>
+          <span>Ромашка</span>
+        </button>
+        <div class="quiz-custom">
+          <input type="text" id="customFlower" placeholder="Введи свою квітку..." maxlength="30" />
+          <button id="customFlowerBtn" class="btn btn-yes">Додати</button>
+        </div>
+      </div>
+      <p id="quizResult"></p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
