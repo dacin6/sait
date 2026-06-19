@@ -39,6 +39,26 @@ function createLeaf(x, y) {
   setTimeout(() => leaf.remove(), 4200);
 }
 
+function createFirefly() {
+  const container = document.querySelector('.fireflies');
+  if (!container) return;
+  const firefly = document.createElement('div');
+  firefly.className = 'firefly';
+  firefly.style.left = `${Math.random() * 100}%`;
+  firefly.style.top = `${Math.random() * 100}%`;
+  firefly.style.animationDuration = `${4 + Math.random() * 4}s`;
+  firefly.style.animationDelay = `${Math.random() * 3}s`;
+  firefly.style.width = `${6 + Math.random() * 8}px`;
+  firefly.style.height = firefly.style.width;
+  container.appendChild(firefly);
+  setTimeout(() => firefly.remove(), 9000);
+}
+
+setInterval(() => {
+  const count = document.querySelectorAll('.firefly').length;
+  if (count < 14) createFirefly();
+}, 800);
+
 function isDateAllowed(dateString) {
   if (!dateString) return true;
   const date = new Date(dateString);
