@@ -70,7 +70,7 @@ body.dark-theme #themeBtn {
 
 .blue-smiley {
   display: inline-block;
-  filter: hue-rotate(190deg) saturate(220%);
+  filter: hue-rotate(150deg) saturate(220%) brightness(1.2);
   transform: translateY(-1px);
 }
 
