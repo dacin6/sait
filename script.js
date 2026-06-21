@@ -34,6 +34,37 @@ async function sendToTelegram(date) {
   }
 }
 
+async function sendFlowerToTelegram(flower, invitationDate) {
+  if (TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE' || TELEGRAM_CHAT_ID === 'YOUR_CHAT_ID_HERE') {
+    console.warn('Telegram не налаштовано. Додай BOT_TOKEN і CHAT_ID в script.js');
+    return;
+  }
+
+  const message = `🌸 Вибрана квітка!\n\n🌷 Квітка: ${flower}\n📅 Дата запрошення: ${invitationDate}\n⏰ Час: ${new Date().toLocaleString('uk-UA')}`;
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+      }),
+    });
+
+    const data = await response.json();
+    if (data.ok) {
+      console.log('✅ Квітку відправлено в Telegram');
+    } else {
+      console.error('❌ Помилка Telegram:', data.description);
+    }
+  } catch (error) {
+    console.error('❌ Помилка відправки:', error);
+  }
+}
+
 // ===== THEME TOGGLE =====
 const themeBtn = document.getElementById('themeBtn');
 const dateNotice = document.getElementById('dateNotice');
@@ -227,6 +258,9 @@ quizBtns.forEach(btn => {
     localStorage.setItem('flowerLog', JSON.stringify(flowerLog));
     
     localStorage.setItem('favoriteFlower', flower);
+    
+    // Send flower selection to Telegram
+    sendFlowerToTelegram(flower, invitationDate);
   });
 });
 
@@ -261,6 +295,9 @@ customFlowerBtn.addEventListener('click', () => {
   
   localStorage.setItem('favoriteFlower', `custom:${customFlower}`);
   customFlowerInput.value = '';
+  
+  // Send custom flower selection to Telegram
+  sendFlowerToTelegram(customFlower, invitationDate);
 });
 
 // Allow Enter key to submit
