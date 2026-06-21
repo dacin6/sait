@@ -1,3 +1,39 @@
+// ===== TELEGRAM CONFIGURATION =====
+// Заміни ці значення на свої:
+const TELEGRAM_BOT_TOKEN = '8634492138:AAEbRyjIs_Vr-7iRI_8VyJRapJ6e6DzyltA';
+const TELEGRAM_CHAT_ID = '892441584';
+
+async function sendToTelegram(date) {
+  if (TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE' || TELEGRAM_CHAT_ID === 'YOUR_CHAT_ID_HERE') {
+    console.warn('Telegram не налаштовано. Додай BOT_TOKEN і CHAT_ID в script.js');
+    return;
+  }
+
+  const message = `🌸 Нова дата запрошення!\n\n📅 Дата: ${date}\n⏰ Час: ${new Date().toLocaleString('uk-UA')}`;
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+      }),
+    });
+
+    const data = await response.json();
+    if (data.ok) {
+      console.log('✅ Повідомлення відправлено в Telegram');
+    } else {
+      console.error('❌ Помилка Telegram:', data.description);
+    }
+  } catch (error) {
+    console.error('❌ Помилка відправки:', error);
+  }
+}
+
 // ===== THEME TOGGLE =====
 const themeBtn = document.getElementById('themeBtn');
 const dateNotice = document.getElementById('dateNotice');
@@ -110,31 +146,31 @@ function clearDateWarning() {
 document.addEventListener('click', (e) => {
   const x = e.clientX;
   const y = e.clientY;
-  const flowers = ['🌸', '🌼', '🌻', '🌺', '💚'];
+  const flowers = ['🌸', '🌼', '🌻', '🌺', '💚', '💖', '✨', '🦋'];
   
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     const particle = document.createElement('div');
     particle.style.position = 'fixed';
     particle.style.left = x + 'px';
     particle.style.top = y + 'px';
-    particle.style.fontSize = '20px';
+    particle.style.fontSize = (18 + Math.random() * 12) + 'px';
     particle.style.pointerEvents = 'none';
     particle.style.zIndex = '999';
     particle.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-    particle.style.animation = `float 1s ease-out forwards`;
-    particle.style.opacity = '0.8';
+    particle.style.animation = `float 1.2s ease-out forwards`;
+    particle.style.opacity = '0.9';
     document.body.appendChild(particle);
     
-    const angle = (Math.PI * 2 * i) / 3;
-    const vx = Math.cos(angle) * 100;
-    const vy = Math.sin(angle) * 100 - 50;
+    const angle = (Math.PI * 2 * i) / 5;
+    const vx = Math.cos(angle) * (80 + Math.random() * 60);
+    const vy = Math.sin(angle) * (80 + Math.random() * 60) - 40;
     
     particle.animate([
-      { transform: 'translate(0, 0)', opacity: 1 },
-      { transform: `translate(${vx}px, ${vy}px)`, opacity: 0 }
-    ], { duration: 1000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' });
+      { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+      { transform: `translate(${vx}px, ${vy}px) scale(0.5)`, opacity: 0 }
+    ], { duration: 1200, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' });
     
-    setTimeout(() => particle.remove(), 1000);
+    setTimeout(() => particle.remove(), 1200);
   }
 });
 
@@ -332,6 +368,9 @@ saveDate.addEventListener('click', () => {
   clearDateWarning();
   localStorage.setItem('chosenDate', d);
 
+  // Send to Telegram
+  sendToTelegram(d);
+
   // Log the date selection
   const dateLog = {
     date: d,
@@ -372,21 +411,21 @@ function launchConfetti() {
   container.className = 'confetti';
   document.body.appendChild(container);
   
-  const emojis = ['🌸', '🌼', '🌻', '🌺', '💚', '✨', '🎉', '💫'];
+  const emojis = ['🌸', '🌼', '🌻', '🌺', '💚', '✨', '🎉', '💫', '💖', '🦋', '⭐', '🌟'];
   
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 80; i++) {
     const el = document.createElement('div');
     el.className = 'piece';
     el.style.left = Math.random() * 100 + '%';
     el.style.top = '-10%';
-    el.style.fontSize = (10 + Math.random() * 20) + 'px';
+    el.style.fontSize = (12 + Math.random() * 24) + 'px';
     el.style.lineHeight = '1';
     el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    el.style.animation = `fall ${3 + Math.random() * 2}s linear forwards`;
+    el.style.animation = `fall ${2.5 + Math.random() * 2.5}s linear forwards`;
     container.appendChild(el);
   }
   
-  setTimeout(() => container.remove(), 5000);
+  setTimeout(() => container.remove(), 6000);
 }
 
 // Light confetti for yes button
@@ -413,18 +452,47 @@ function createStarBackground() {
   const starsContainer = document.querySelector('.stars');
   if (!starsContainer) return;
   
-  for (let i = 0; i < 5; i++) {
+  // Add floating hearts
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.style.position = 'absolute';
+    heart.style.fontSize = (12 + Math.random() * 20) + 'px';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.top = Math.random() * 100 + '%';
+    heart.style.opacity = 0.1 + Math.random() * 0.2;
+    heart.style.animation = `floatHeart ${4 + Math.random() * 4}s ease-in-out infinite`;
+    heart.style.animationDelay = (Math.random() * 3) + 's';
+    heart.textContent = ['💖', '💕', '💗', '❤️'][Math.floor(Math.random() * 4)];
+    starsContainer.appendChild(heart);
+  }
+  
+  // Add stars
+  for (let i = 0; i < 20; i++) {
     const star = document.createElement('div');
     star.style.position = 'absolute';
-    star.style.width = (1 + Math.random() * 3) + 'px';
+    star.style.width = (2 + Math.random() * 4) + 'px';
     star.style.height = star.style.width;
     star.style.left = Math.random() * 100 + '%';
     star.style.top = Math.random() * 100 + '%';
-    star.style.background = `rgba(43, 138, 62, ${0.1 + Math.random() * 0.3})`;
+    star.style.background = `rgba(255, 255, 255, ${0.2 + Math.random() * 0.4})`;
     star.style.borderRadius = '50%';
-    star.style.animation = `twinkle ${2 + Math.random() * 2}s infinite`;
+    star.style.animation = `twinkle ${2 + Math.random() * 3}s infinite`;
     star.style.animationDelay = (Math.random() * 2) + 's';
     starsContainer.appendChild(star);
+  }
+  
+  // Add sparkles
+  for (let i = 0; i < 10; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.style.position = 'absolute';
+    sparkle.style.fontSize = (8 + Math.random() * 12) + 'px';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkle.style.opacity = 0.15 + Math.random() * 0.25;
+    sparkle.style.animation = `twinkle ${1.5 + Math.random() * 2}s infinite`;
+    sparkle.style.animationDelay = (Math.random() * 2) + 's';
+    sparkle.textContent = ['✨', '⭐', '🌟'][Math.floor(Math.random() * 3)];
+    starsContainer.appendChild(sparkle);
   }
 }
 
