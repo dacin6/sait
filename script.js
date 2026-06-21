@@ -112,7 +112,8 @@ function formatDate(date) {
 function getNextWeekBounds(fromDate) {
   const date = new Date(fromDate);
   const day = date.getDay();
-  const daysUntilNextMonday = ((8 - day) % 7) || 7;
+  // Calculate days until next Monday (always at least 1 day)
+  const daysUntilNextMonday = (day === 0) ? 1 : (8 - day);
   const nextMonday = new Date(date);
   nextMonday.setDate(date.getDate() + daysUntilNextMonday);
   const nextSunday = new Date(nextMonday);
@@ -379,7 +380,7 @@ saveDate.addEventListener('click', () => {
   localStorage.setItem('dateLog', JSON.stringify(dateLog));
 
   dateArea.classList.add('hidden');
-  result.innerHTML = `<strong>Дякую! 🎉</strong><br>Зберіг дату: <strong>${d}</strong><br>Чекаю з нетерпінням 💚`;
+  result.innerHTML = `<strong>Дані зафіксовано! ✅</strong><br>Будь готова близько 19:00 �`;
   result.style.animation = 'fadeInUp 0.6s ease';
 
   // Show quiz after date is saved
