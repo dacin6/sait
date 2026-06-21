@@ -98,8 +98,8 @@ body.dark-theme #themeBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1em;
-  height: 1em;
+  width: 0.7em;
+  height: 0.7em;
   filter: none;
   transform: translateY(-1px);
 }
