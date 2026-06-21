@@ -260,8 +260,7 @@ const result = document.getElementById('result');
 
 let noClickCount = 0;
 
-// Make No button "run away" when mouse approaches
-noBtn.addEventListener('mouseenter', () => {
+function moveNoButton() {
   noClickCount++;
   const distance = 80 + noClickCount * 30;
   const angle = Math.random() * Math.PI * 2;
@@ -271,11 +270,18 @@ noBtn.addEventListener('mouseenter', () => {
   noBtn.style.transform = `translate(${x}px, ${y}px) scale(${Math.max(0.7, 1 - noClickCount * 0.1)})`;
   noBtn.style.transition = 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
   
-  // Playful scaling effect
   if (noClickCount > 3) {
     noBtn.textContent = Math.random() > 0.5 ? '😅' : '🏃';
   }
-});
+}
+
+// Make No button "run away" when mouse or touch approaches
+noBtn.addEventListener('mouseenter', moveNoButton);
+noBtn.addEventListener('pointerenter', moveNoButton);
+noBtn.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  moveNoButton();
+}, { passive: false });
 
 // Restore button text on mouse leave
 noBtn.addEventListener('mouseleave', () => {
