@@ -109,16 +109,16 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function getNextWeekBounds(fromDate) {
+function getCurrentWeekBounds(fromDate) {
   const date = new Date(fromDate);
   const day = date.getDay();
-  // Calculate days until next Monday (always at least 1 day)
-  const daysUntilNextMonday = (day === 0) ? 1 : (8 - day);
-  const nextMonday = new Date(date);
-  nextMonday.setDate(date.getDate() + daysUntilNextMonday);
-  const nextSunday = new Date(nextMonday);
-  nextSunday.setDate(nextMonday.getDate() + 6);
-  return { min: nextMonday, max: nextSunday };
+  // Calculate days until Monday of current week
+  const daysUntilMonday = (day === 0) ? -6 : (1 - day);
+  const monday = new Date(date);
+  monday.setDate(date.getDate() + daysUntilMonday);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  return { min: monday, max: sunday };
 }
 
 function getNextAllowedDate(startDate, endDate) {
@@ -340,9 +340,9 @@ yesBtn.addEventListener('click', () => {
   dateArea.classList.remove('hidden');
   dateArea.style.animation = 'fadeInUp 0.6s ease';
 
-  // only next week, excluding Monday and Friday because I am on duty for 24 hours on those days
+  // only current week, excluding Monday and Friday because I am on duty for 24 hours on those days
   const today = new Date();
-  const { min, max } = getNextWeekBounds(today);
+  const { min, max } = getCurrentWeekBounds(today);
   dateInput.min = formatDate(min);
   dateInput.max = formatDate(max);
   dateInput.value = formatDate(getNextAllowedDate(min, max));

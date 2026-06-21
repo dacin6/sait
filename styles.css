@@ -94,6 +94,22 @@ body.dark-theme #themeBtn {
   vertical-align: middle;
 }
 
+.smiley-svg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  filter: none;
+  transform: translateY(-1px);
+}
+
+.smiley-svg svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .fireflies {
   position: fixed;
   inset: 0;
