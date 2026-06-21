@@ -618,16 +618,84 @@ body.dark-theme #customFlower:focus {
 }
 
 @media (max-width: 420px) {
+  html, body {
+    font-size: 14px;
+  }
+
+  .theme-toggle {
+    top: 14px;
+    right: 14px;
+  }
+
+  .wrap {
+    margin: 3vh 12px;
+    padding: 24px 18px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  }
+
+  .animated-title {
+    font-size: 2.1em;
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+  }
+
+  .lead {
+    font-size: 1em;
+    margin-bottom: 18px;
+  }
+
+  .info-section {
+    padding: 18px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .feature {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .feature span:last-child {
+    font-size: 1em;
+  }
+
   .buttons {
     flex-direction: column;
+    gap: 12px;
   }
-  
-  .animated-title {
-    font-size: 2em;
+
+  .btn {
+    width: 100%;
+    padding: 16px 20px;
   }
-  
-  .wrap {
-    margin: 4vh auto;
-    padding: 24px;
+
+  .quiz-section {
+    padding: 24px 18px;
+  }
+
+  .quiz-options {
+    gap: 12px;
+  }
+
+  .quiz-btn {
+    padding: 14px 16px;
+    font-size: 1em;
+  }
+
+  .quiz-custom {
+    flex-direction: column;
+  }
+
+  .quiz-custom input,
+  .quiz-custom button {
+    width: 100%;
+  }
+
+  .result {
+    font-size: 1em;
+    margin-top: 18px;
   }
 }
